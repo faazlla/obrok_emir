@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+
+{%block content%}
+
+<style>
+	.collaboration_form {
+		margin-top:50px;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+	}
+
+	.input_collaboration {
+		background: rgba(25, 25, 25, 0.7);
+		padding:15px;
+		border-radius:10px;
+		border-color:white;
+		border-style:solid;
+		border-width: 2px;
+	}
+
+		
+	.button_register_collaboration {
+		background-color: #4CAF50; 
+		color: white; 
+		border: none; 
+		padding: 10px 20px; 
+		text-align: center; 
+		text-decoration: none; 
+		display: inline-block;
+		font-size: 16px; 
+		transition: background-color 0.3s ease; 
+		cursor: pointer; 
+		border-radius: 5px; 
+	}
+
+	.button_register_collaboration:hover {
+		background-color: #45a049;
+	}
+
+	.button_register_collaboration:active {
+		background-color: #3e8e41;
+	}
+
+</style>
+
+<div class="collaboration_form">
+	<form method="POST" action="">
+		{% csrf_token %}
+		{% if form.errors %}
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				Your Form Has Errors
+				{% for field in form %}
+					{% if field.errors %}
+						{{ field.errors }}
+					{% endif %}
+				{% endfor %}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+
+		<div class="input_collaboration">
+			{{ form.as_p }}
+			<br/>
+			<button type="submit" class="button_register_collaboration">REGISTER</button>
+		</div>
+	</form>
+</div>
+
+
+
+
+{% endblock %}

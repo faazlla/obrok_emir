@@ -1,0 +1,91 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{%block content%}
+
+
+
+<form method="POST" action="">
+	{% csrf_token %}
+	{% if form.errors %}
+		<div class="alert alert-warning alert-dismissible fade show fixed-alert" role="alert">
+			{% for field in form %}
+			  	{% if field.errors %}
+			  		{{ field.errors }}
+			  	{% endif %}
+			{% endfor %}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>    
+	{% endif %}
+
+	<section class="vh-100" style="background-color: #0000000; max-height: 80%;">
+		<div class="container py-5 h-100">
+		  <div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col col-xl-10">
+			  <div class="card" style="border-radius: 1rem;">
+				<div class="row g-0">
+					<div class="col-md-6 col-lg-5 d-none d-md-block" style="margin-top:120px;">
+						<img src="{% static 'images/register.png' %}"
+						  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+					</div>
+				  <div class="col-md-6 col-lg-7 d-flex align-items-center" >
+					<div class="card-body p-4 p-lg-5 text-black" style="background-color:  rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important; border-radius:15px;" >
+						
+					  
+						<div class="d-flex align-items-center mb-3 pb-1">
+						  <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+						</div>
+	  
+						<h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Create new account</h5>
+	  
+						<div class="form-outline mb-4">
+						  <input type="text" id="form2Example17" name="username" class="form-control form-control-lg" placeholder="Username" required />
+						</div>
+						
+						<div class="form-outline mb-4">
+							<input type="text" id="form2Example17" name="first_name" class="form-control form-control-lg" placeholder="First Name" required />
+						</div>
+						<div class="form-outline mb-4">
+							<input type="text" id="form2Example17" name="last_name" class="form-control form-control-lg" placeholder="Last Name" required />
+						</div>
+						<div class="form-outline mb-4">
+							<input type="text" id="form2Example17" name="email" class="form-control form-control-lg" placeholder="Email" required />
+						</div>
+	
+	
+	
+	
+						<div class="form-outline mb-4">
+						  <input type="password" id="form2Example27" name="password1" class="form-control form-control-lg" placeholder="Password" required />
+						</div>
+	
+						<div class="form-outline mb-4">
+							<input type="password" id="form2Example27" name="password2" class="form-control form-control-lg" placeholder="Confirm Password" required />
+						  </div>
+	  
+						<div class="pt-1 mb-4">
+						  <button type="submit" class="btn btn-dark btn-lg btn-block" type="button">Register</button>
+						</div>
+	  
+						<p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? <a href="{% url 'home' %}"
+							style="color: #393f81;">Login Here</a></p>
+					  </form>
+	  
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</section>
+	
+
+
+</form>
+
+</div>
+
+
+{% endblock %}

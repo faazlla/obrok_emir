@@ -1,0 +1,84 @@
+{% extends "index.html" %}
+
+{%block content%}
+
+
+<style>
+	.donationUser_form {
+		margin-top:70px;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+	}
+
+	.input_donationUser {
+		background: rgba(25, 25, 25, 0.7);
+		padding:15px;
+		border-radius:10px;
+		border-color:white;
+		border-style:solid;
+		border-width: 2px;
+	}
+
+		
+	.button_donationUser {
+		background-color: #4CAF50; 
+		color: white; 
+		border: none; 
+		padding: 10px 20px; 
+		text-align: center; 
+		text-decoration: none; 
+		display: inline-block;
+		font-size: 16px; 
+		transition: background-color 0.3s ease; 
+		cursor: pointer; 
+		border-radius: 5px; 
+	}
+
+	.button_donationUser:hover {
+		background-color: #45a049;
+	}
+
+	.button_donationUser:active {
+		background-color: #3e8e41;
+	}
+
+</style>
+
+<div class="donationUser_form">
+    <form method="post">
+        {% csrf_token %}
+        <div class="input_donationUser">
+            {{ form.as_p }}</br>
+            <button type="submit" class="button_donationUser">Use Donation</button>
+        </div>
+    </form>
+</div>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const citySelector = document.getElementById('city-selector');
+    const restaurantSelector = document.getElementById('restaurant-selector');
+
+    citySelector.addEventListener('change', function() {
+        const selectedCityId = this.value;
+        fetch(`/get_restaurants/${selectedCityId}/`)
+            .then(response => response.json())
+            .then(data => {
+                restaurantSelector.innerHTML = '<option value="">Select Restaurant</option>';
+                data.restaurants.forEach(function(restaurant) {
+                    const option = document.createElement('option');
+                    option.value = restaurant.id;
+                    option.text = restaurant.restaurant_name;
+                    restaurantSelector.appendChild(option);
+                });
+            });
+    });
+});
+
+
+</script>
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+{%load static%}
+
+{% block content %}
+
+  <style>
+    .news_logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .news_photo {
+      margin-top:50px;
+      width:150px;
+    }
+    
+    
+    
+    .no_info {
+        margin-top: 5px;  /* Ovo možete prilagoditi kako želite */
+    }
+  
+    #card_golden{
+      margin-top: 60px;
+      margin-left:30px;
+      width: 100%;
+      border-color:rgb(201, 251, 256, 0.7);
+      border-width:2px;
+    }
+
+    #card_golden-header {
+      background-color: rgb(201, 151, 26, 0.9);
+      border-color: rgb(201, 251, 256, 0.7);
+      border-width:2px;
+    }
+
+    #card_golden-body{
+      background:rgb(241, 253, 249);
+    }
+
+    .card {
+      margin: 20px;
+    }
+
+    .card-header {
+      background-color: rgba(50, 85, 75, 0.7); 
+    }
+
+    @media only screen and (max-width: 650px) {
+        .news_logo {
+          display: flex;
+          flex-direction: column;
+          margin-left:15px;
+          margin-right:25px;
+          justify-content:center;
+        }
+        #card_golden{
+          margin-top:-10px;
+        }
+      }
+
+  </style>
+
+
+  <div class="news_logo">
+    <img class="news_photo" src="{% static 'images/news.png' %}">
+    {% if golden_restaurant %}
+      <div class="card" id="card_golden">
+        <h5 class="card-header" id="card_golden-header"><strong>GOLDEN RESTAURANT</strong></h5>
+        <div class="card-body" id="card_golden-body">
+          <h5 class="card-title" id="card_golden-title">Restaurant: {{ golden_restaurant.name }}</h5>
+          <p class="card-text" id="card_golden-text"><strong>City: </strong>{{ golden_restaurant.city }} </br><strong>Available: </strong>{{ golden_restaurant.funds }}BAM</p>
+        </div>
+      </div>
+    {% else %}
+    <div class="card" id="card_golden">
+      <h5 class="card-header" id="card_golden-header"><strong>GOLDEN RESTAURANT</strong></h5>
+      <div class="card-body" id="card_golden-body">
+        <h5 class="card-title" id="card_golden-title">Restaurant: /</h5>
+        <p class="card-text" id="card_golden-text"><strong>City: / </strong></br><strong>Available: /</strong></p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+    {% for news_item in news_items %}
+      <div class="card">
+        {% if news_item.news_type == 'donation' %}
+        <h5 class="card-header">DONATION</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ news_item.user.username }}</h5>
+          <p class="card-text">The user "{{ news_item.user.username }}" donated {{ news_item.donation.amount }} BAM to the restaurant "{{ news_item.restaurant.restaurant_name }}". We thank him for his generosity.</p>
+        </div>
+        {% elif news_item.news_type == 'restaurant' %}
+        <h5 class="card-header">COLLABORATION</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ news_item.restaurant.restaurant_name }}</h5>
+          <p class="card-text">The restaurant "{{ news_item.restaurant.restaurant_name }}" has joined our community. Owner: "{{ news_item.user.username }}".  We wish them many donations. Welcome aboard.</p>
+        </div>
+        {% endif %}
+      </div>
+    {% empty %}
+      <h5 class="card-header">There is no news.</h5>
+    {% endfor %}
+
+{% endblock %}

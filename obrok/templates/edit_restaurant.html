@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<style>
+	.editRestaurant {
+		margin-top:80px;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+	}
+
+	.editRestaurant_Form {
+		background: rgba(25, 25, 25, 0.7);
+		padding:15px;
+		border-radius:10px;
+		border-color:white;
+		border-style:solid;
+		border-width: 2px;
+	}
+
+		
+	.button_editRestaurant {
+		background-color: #4CAF50; 
+		color: white; 
+		border: none; 
+		padding: 10px 20px; 
+		text-align: center; 
+		text-decoration: none; 
+		display: inline-block;
+		font-size: 16px; 
+		transition: background-color 0.3s ease; 
+		cursor: pointer; 
+		border-radius: 5px; 
+	}
+
+	.button_editRestaurant:hover {
+		background-color: #45a049;
+	}
+
+	.button_editRestaurant:active {
+		background-color: #3e8e41;
+	}
+
+  .backfromEdit{
+    color: white;
+    text-decoration: none;
+    margin-left: 100px; 
+  }
+
+</style>
+
+<div class="editRestaurant">
+  <form method="post">
+    {% csrf_token %}
+    <div class="editRestaurant_Form">
+      {{ form.as_p }}
+      <button type="submit" class="button_editRestaurant">Save</button>
+      <a class="backfromEdit" href="{% url 'user_restaurants' %}">Back?</a>
+    </div>
+  </form>
+  <br>
+
+</div>
+{% endblock %}

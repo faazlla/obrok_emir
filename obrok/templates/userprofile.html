@@ -1,0 +1,260 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<style>
+    body{
+     font-weight: 500;
+    }
+
+
+    .card{
+        margin-top: 70px;
+        width: 380px;
+        border: none;
+        border-radius: 15px;
+        padding: 8px;
+        background-color: #fff;
+        position: relative;
+    }
+
+    .upper{
+
+     height: 100px;
+
+    }
+
+    .upper img{
+
+     width: 100%;
+     border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
+
+    }
+
+    .user{
+     position: relative;
+    }
+
+    .profile img{
+
+     
+     height: 80px;
+     width: 80px;
+     margin-top:2px;
+
+    
+    }
+
+    .profile{
+
+     position: absolute;
+     top:-50px;
+     left: 38%;
+     height: 90px;
+     width: 90px;
+     border:3px solid #fff;
+
+     border-radius: 50%;
+
+    }
+
+    .follow{
+
+     border-radius: 15px;
+     padding-left: 20px;
+     padding-right: 20px;
+     height: 35px;
+    }
+
+    .stats span{
+
+     font-size: 27px;
+    }
+
+    .donation_restaurants_details {
+        padding:5px;
+        color: black;
+        background: rgb(14, 15, 12, 0.9); 
+        border-radius: 15px;
+    }
+
+    .donacija_detalj {
+        padding:5px;
+        background: white;
+        border-radius: 15px;
+        font-size:10px;
+        text-align:left;
+    }
+
+    .h1_donacija{
+        text-align:left;
+        margin-left:10px;
+        font-size:20px;
+        color: white;
+    }
+
+    .restoran_detalj {
+        padding:5px;
+        background: white;
+        border-radius: 15px;
+        font-size:10px;
+        text-align:left;
+    }
+
+    .h1_restoran {
+        text-align:left;
+        margin-left:10px;
+        font-size:20px;
+        color: white;
+    }
+
+    .mt-5 {
+        margin-top: 0rem !important;
+
+    }
+
+    @media only screen and (max-width: 450px) {
+        .mb-0 {
+            font-size: 12px;
+        }
+
+        .stats span{
+
+            font-size: 18px;
+           }
+        
+        .card{
+            margin-top: 50px;
+        }
+    
+    
+    }
+
+</style>
+
+
+<div class="container d-flex justify-content-center align-items-center">
+             
+    <div class="card">
+
+     <div class="upper">
+
+       <img src="https://i.imgur.com/Qtrsrk5.jpg" class="img-fluid">
+       
+     </div>
+
+
+
+     <div class="mt-5 text-center">
+
+       <h4 class="mb-1">{{ profile_user.username }}</h4>
+       <span class="text-muted d-block mb-2">{{ profile_user.first_name }} {{ profile_user.last_name }}</span>
+
+
+       <div class="d-flex justify-content-between align-items-center mt-4 px-4">
+
+
+
+         <div class="stats">
+           <h6 class="mb-0">Top Donation</h6>
+           <span>{{ max_donation }}</span>
+
+         </div>
+
+         <div class="stats">
+            <h6 class="mb-0">Donations</h6>
+            <span>{{ num_donations }}</span>
+ 
+         </div>
+
+         <div class="stats">
+           <h6 class="mb-0">All Donations</h6>
+           <span>{{ total_donated }}</span>
+
+         </div>
+       </div></br>
+       <div class="donation_restaurants_details">
+            <div class="all_donation">
+                {% if donations %}
+                    <div class="detalji_donacija">
+                        <h2 class="h1_donacija">Donations:</h2>
+                        {% for donation in donations %}
+                            <p class="donacija_detalj">{{ donation.amount }} BAM donated on {{ donation.donation_time }} </p>
+                        {% empty %}
+                            <p>No donations yet.</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h2 class="h1_donacija">Donations:</h2>
+                {% endif %}
+            </div></br>
+            <div class="restaurant_details">
+                <div class="detalji_restorana">
+                    <h1 class="h1_restoran">My Restaurants:</h4>
+                    {% for restaurant in restaurants %}
+                        <p class="restoran_detalj">Name: {{ restaurant.restaurant_name }} - {{ restaurant.city }}</p>
+                    {% empty %}
+                        
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+     </div>
+      
+    </div>
+
+  </div>
+
+{% endblock %}
+
+
+
+{% if profile_user %}
+  <div class="profile_container">
+	<div class="profile_details">
+		<h3 class="name">{{ profile_user.username}}</h3>
+		<p class="title">{{ profile_user.first_name }} {{ profile_user.last_name }}</p>
+	</div>
+	<div class="donation_details">
+		<div class="d_icon">
+			<h4>{{ num_donations }}</h4>
+			<p>Donations</p>
+		</div>
+		
+		<div class="d_icon">
+			<h4>{{ max_donation }} BAM</h4>
+			<p>Top Donation</p>
+		</div>
+		
+		<div class="d_icon">
+			<h4>{{ total_donated }} BAM</h4>
+			<p>All Donations</p>
+		</div>
+  </div>
+  {% if donations %}
+    <h2>Donations:</h2>
+    <ul>
+      {% for donation in donations %}
+        <li>{{ donation.amount }} BAM donated on {{ donation.donation_time }}</li>
+      {% empty %}
+        <li>No donations yet.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No donations yet.</p>
+  {% endif %}
+  {% if restaurants %}
+    <h2>Restaurants:</h2>
+    <ul>
+      {% for restaurant in restaurants %}
+        <li>{{ restaurant.restaurant_name }} - {{ restaurant.city }}</li>
+      {% empty %}
+        <li>No restaurants yet.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No restaurants yet.</p>
+  {% endif %}
+{% else %}
+  <p>User not found.</p>
+{% endif %}

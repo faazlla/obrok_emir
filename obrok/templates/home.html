@@ -1,0 +1,276 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{%block content%}
+
+{% if user.is_authenticated %}
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+
+    .container_card {
+        margin-top:60px;
+        display: flex;
+        justify-content: center;
+        margin-bottom:20px;
+    }
+
+    .card-circle{
+        text-align:center;
+        margin-top:50px;
+        background:rgba(25, 25, 25, 0.7);   
+        border:10px solid transparent;
+        color:#fff;
+        Font-family: Montserrat;
+        padding:50px;
+        border-radius:50%;
+    }
+    .card-circle .card-title{
+        font-weight:700;
+        font-size:20px;
+    }
+    .card-circle .card-text{
+        font-weight:400;
+    }
+    .card-circle .card-icon i{
+        font-size:60px;
+        display:block;
+    }
+    .card-circle:nth-child(2){
+        background:rgba(20, 20, 20); 
+    }
+    .card-circle .btn{
+        Font-family: Montserrat;
+        background:transparent;
+        border:1px solid #fff;
+        text-transform:uppercase;
+        padding:5px 30px;    
+        border-radius:0px;
+        Font-weight:600;
+    }
+    .card-circle .btn,.card-circle .card-icon i,.card-circle{
+    transition: all ease-in-out 0.3s;
+    }
+    .card-circle:hover .btn{
+        background:#00A8CC;
+        color:#fff;
+    border: 1px solid transparent;
+    }
+    .card-circle .btn:hover{
+        transform: scale(1.1);
+    }
+    .card-circle:hover{
+        border:10px solid #00A8CC;
+    }
+    .card-circle:hover i {
+    text-shadow: 0px -1px 10px #00A8CC;
+        transform:scale(1.2)rotate(20deg);
+    }
+    @media only screen and (min-width: 1200px) {
+        .container_card {
+            margin: 150px 20px;
+        }
+
+        .card-circle:nth-child(3){
+            margin-left:-40px;
+            z-index:0;
+        }
+        .card-circle{
+            width:380px;
+            height:380px;
+        }
+        .card-circle:nth-child(2){
+            margin-left:-20px;
+            box-shadow: 1px 2px 20px 8px rgba(241, 235, 235, 0.12);
+            transform: scale(1.2);
+            z-index:1;
+        }
+    
+    }
+    @media only screen and (min-width: 991px) and (max-width: 1200px) {
+    .card-circle{
+            width:340px;
+            height:340px;
+        }
+    .card-circle .card-icon i{
+        font-size:50px;
+    }
+    .card-circle .card-icon i{
+        margin-top: -25px;
+        }
+    .card-circle:nth-child(3){
+            margin-left:-50px;
+            z-index:0;
+        }
+    .card-circle:nth-child(2){
+            margin-left:-20px;
+            box-shadow: 1px 2px 20px 8px rgba(241, 235, 235, 0.12);
+            transform: scale(1.2);
+            z-index:1;
+        }
+    }
+
+    @media only screen and (min-width: 769px) and (max-width: 991px) {
+        .container_card{
+            margin-left: -50px;
+            margin-right: -50px;
+        }
+
+        .card-circle{
+                width:290px;
+                height:290px;
+            }
+
+
+        .card-circle .card-title{
+            font-weight:700;
+            font-size:16px;
+        }
+
+        .card-circle .card-text{
+            font-weight:200;
+            font-size:13px;
+        }
+
+        .card-circle .card-icon i{
+            margin-top: -25px;
+            }
+        .card-circle:nth-child(3){
+                margin-left:-50px;
+                z-index:0;
+            }
+        .card-circle:nth-child(2){
+                margin-left:-20px;
+                box-shadow: 1px 2px 20px 8px rgba(241, 235, 235, 0.12);
+                transform: scale(1.2);
+                z-index:1;
+            }
+        }
+    
+    @media only screen and (min-width: 290px) and (max-width: 769px) {
+        .container_card{
+                margin-top: 20px;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+        .card-circle:nth-child(2){
+                box-shadow: 1px 2px 20px 8px rgba(241, 235, 235, 0.12);
+                transform: scale(1.05);
+                z-index:1;
+                margin-top: -25px;
+                margin-bottom: -75px;
+            }
+        .card-circle:nth-child(3){
+                box-shadow: 1px 2px 20px 8px rgba(241, 235, 235, 0.12);
+                transform: scale(1.0);
+                z-index:0;
+            }
+        .card-circle:nth-child(1){
+                box-shadow: 1px 2px 20px 8px rgba(241, 235, 235, 0.12);
+                transform: scale(1.0);
+                z-index:0;
+            }
+        }
+
+
+        
+
+
+    
+
+</style>
+
+
+<div class="container_card">
+    <div class="row">
+      <!-- card1 -->
+       <div class="card card-circle">
+          <div class="card-icon">
+             <i class="fas fa-apple-alt"></i>
+          </div>
+          <div class="card-body">
+             <h5 class="card-title">DONATION</h5>
+             <p class="card-text">Your little means a lot to someone...</p>
+             <a href="{% url 'donation' %}" class="btn btn-primary">DONATE</a>
+          </div>
+       </div>
+       <!-- card2 -->
+       <div class="card card-circle">
+          <div class="card-icon">
+             <i class="fas fa-cookie"></i>
+          </div>
+          <div class="card-body">
+             <h5 class="card-title">COLLABORATION</h5>
+             <p class="card-text">Join our community and become a part of this incredible story.</p>
+             <a href="{% url 'collaboration' %}" class="btn btn-primary">COLAB</a>
+          </div>
+       </div>
+       <!-- card3 -->
+       <div class="card card-circle ">
+          <div class="card-icon">
+             <i class="fas fa-carrot"></i>
+          </div>
+          <div class="card-body">
+             <h5 class="card-title">USER</h5>
+             <p class="card-text">Feel free to take your free meal.</p>
+             <a href="{% url 'donation_user' %}" class="btn btn-primary">TAKE</a>
+          </div>
+       </div>
+    </div>
+</div>
+
+    
+
+{% else %}
+
+<section class="vh-100" style="background-color: #0000000;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                    <img src="{% static 'images/login.png' %}"
+                      alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center" >
+                <div class="card-body p-4 p-lg-5 text-black" style="background-color:  rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important; border-radius:15px;" >
+  
+                  <form method="POST" action="{% url 'home' %}" >
+                    {% csrf_token %}
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    </div>
+  
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+  
+                    <div class="form-outline mb-4">
+                      <input type="text" id="form2Example17" name="username" class="form-control form-control-lg" placeholder="Username" required />
+                    </div>
+  
+                    <div class="form-outline mb-4">
+                      <input type="password" id="form2Example27" name="password" class="form-control form-control-lg" placeholder="Username" required />
+                    </div>
+  
+                    <div class="pt-1 mb-4">
+                      <button type="submit" class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                    </div>
+  
+                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="{% url 'register' %}"
+                        style="color: #393f81;">Register here</a></p>
+                  </form>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+{% endif %}
+
+{% endblock %}
