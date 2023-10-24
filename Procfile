@@ -1,0 +1,1 @@
+web: gunicorn obrok_ba.wsgi
