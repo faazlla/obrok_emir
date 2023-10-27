@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'obrok_ba.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '26edFbga2gAB4gfCgF*15F2cB52G3d1e',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '16017',
     }
 }
 
