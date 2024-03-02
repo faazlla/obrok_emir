@@ -1,6 +1,8 @@
 import os
 import django
 
+
+#DODAVANJE GRADOVA U BAZU
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'obrok_ba.settings')
 django.setup()
 
@@ -22,7 +24,6 @@ cities_list = [
     'Tešanj', 'Tomislavgrad', 'Travnik', 'Trebinje', 'Tuzla', 'Ugljevik', 'Usora', 'Ustiprača', 'Vareš', 
     'Velika Kladuša', 'Velika Obarska', 'Visoko', 'Višegrad', 'Vitez', 'Vlasenica', 'Vogošća', 'Vukosavlje', 
     'Zavidovići', 'Zenica', 'Žepče', 'Živinice', 'Zvornik'
-    # ... dodajte ostale gradove prema potrebi
 ]
 
 

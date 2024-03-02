@@ -5,14 +5,14 @@ import random
 import string
 
 # Create your models here.
-
+#Model za gradove
 class City(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
-
+#Model za restorane + funkcije za dodavanje sredstava, generiranje koda i oduzimanje sredstava
 class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length=100, null=False, blank=False)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
@@ -47,13 +47,15 @@ class Restaurant(models.Model):
 
 
 
-
+#Model za donacije
 class Donation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey('obrok.Restaurant', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     donation_time = models.DateTimeField(default=timezone.now)
 
+
+#Model za novosti o donacijama i restoranima
 class NewsItem(models.Model):
     NEWS_TYPES = (
         ('donation', 'Donation'),

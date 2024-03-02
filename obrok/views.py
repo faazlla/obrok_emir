@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models import Sum, Count
 
-
+#LOGIN I LOGOUT SISTEM
 def home(request):    
     if request.method == 'POST':
         username = request.POST['username']
@@ -34,7 +34,7 @@ def logout_user(request):
     messages.success(request, "You Have Been Logged Out...")
     return redirect('home')
 
-
+#Register sistem
 def register_user(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -54,6 +54,7 @@ def register_user(request):
     return render(request, 'register.html', {'form':form})
 
 
+#Kolaboracije - ZA RESTORANE, registrovanje kako bi suradjivali
 @login_required
 def collaboration(request):
     if request.method == 'POST':
@@ -96,6 +97,7 @@ def subtract_funds(request, restaurant_id, amount):
     else:
         return JsonResponse({'error': 'Insufficient funds.'}, status=400)
 
+#DONACIJE novcanih sredstava u restorane
 @login_required
 def donation(request):
     form = DonationForm(request.POST or None)
@@ -123,12 +125,12 @@ def donation(request):
 
     return render(request, 'donation.html', {'form': form})
 
-
+#Filtriranje restorana po odredjenom gradu
 def get_restaurants(request, city_id):
     restaurants = list(Restaurant.objects.filter(city_id=city_id).values('id', 'restaurant_name'))
     return JsonResponse({'restaurants': restaurants})
 
-
+#Korisnik donacija
 @login_required
 def donation_user(request):
     form = DonationUserForm(request.POST or None)
@@ -160,7 +162,7 @@ def donation_user(request):
 
     return render(request, 'donation_user.html', {'form': form})
 
-
+#MOJ PROFIL - Restorani u mom vlasnistvu
 @login_required
 def user_restaurants(request):
     # Dohvati trenutno logovanog korisnika
@@ -172,7 +174,7 @@ def user_restaurants(request):
     # Prosledi listu restorana u template
     return render(request, 'user_restaurants.html', {'user_restaurants': user_restaurants})
 
-
+#Uredjivanje podataka restorana
 @login_required
 def edit_restaurant(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id, user=request.user)
@@ -193,6 +195,7 @@ def edit_restaurant(request, restaurant_id):
 #    news_items = NewsItem.objects.all().order_by('-created_at')
 #    return render(request, 'news.html', {'news_items': news_items})
 
+#Novosti --- Kreiranje donacije, kreiranje restorana
 def create_donation_news(donation):
     user = donation.user
     restaurant = donation.restaurant
@@ -203,7 +206,7 @@ def create_restaurant_news(restaurant):
     NewsItem.objects.create(user=user, news_type='restaurant', restaurant=restaurant, created_at=timezone.now())
 
 from django.db.models import F, Max
-
+#NEWS PAGE
 def news(request):
     # Pronalazimo restoran sa najvećim iznosom dostupnih sredstava
     golden_restaurant = Restaurant.objects.order_by('-available_funds').first()
@@ -225,7 +228,7 @@ def news(request):
 
 #############################################
 
-
+#MOJ PROFIL
 @login_required
 def my_profile(request):
     user = request.user
@@ -245,6 +248,7 @@ def my_profile(request):
         'max_donation': max_donation
     })
 
+#Profili drugih korisnika
 def user_profile(request, username):
     profile_user = get_object_or_404(User, username=username)
     donations = Donation.objects.filter(user=profile_user)  # Dohvati sve donacije korisnika
@@ -264,7 +268,7 @@ def user_profile(request, username):
     })
 
 
-
+#Search forma
 def search_profile(request):
     username = request.GET.get('username')
     if username:
